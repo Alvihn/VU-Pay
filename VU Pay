@@ -1,0 +1,58 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.mavenproject1;
+
+/**
+ *
+ * @author Alvihn-PC
+ */
+
+
+/* This program defines a VU class with a calculatePay method that takes the base pay and hours worked as parameters. 
+It checks if the base pay is less than the minimum wage or if the hours worked are more than the maximum hours, and prints an error message if either condition is true. 
+Otherwise, it calculates the total pay based on the number of hours worked and prints the result. */
+
+
+public class VU {
+    private static final int MINIMUM_WAGE = 40000;
+    private static final int MAXIMUM_HOURS = 60;
+
+    public void calculatePay(int basePay, int hoursWorked) {
+        if (basePay < MINIMUM_WAGE) {
+            System.out.println("Error: Base pay cannot be less than UGX40,000 an hour.");
+            return;
+        }
+        if (hoursWorked > MAXIMUM_HOURS) {
+            System.out.println("Error: Hours worked cannot be more than 60 hours a week.");
+            return;
+        }
+/* Note that the basePay and hoursWorked parameters are declared as int instead of double to avoid floating-point errors. The basePay value is multiplied by 1.5 to calculate the overtime pay, and the result is cast to int to truncate the decimal part. This ensures that the overtime pay is calculated correctly, even if the base pay is not a whole number. */
+        int regularPay = hoursWorked * basePay;
+        int overtimeHours = hoursWorked - 40;
+        int overtimePay = overtimeHours * (int) (basePay * 1.5);
+        int totalPay = regularPay + overtimePay;
+
+        System.out.println("Total pay: UGX" + totalPay);
+    }
+
+    public static void main(String[] args) {
+        VU vupay = new VU();
+        int[][]employees = {
+            {28000, 35},
+            {35000, 45},
+            {38000, 75},
+           // {40000, 50},
+           // {48000, 60},
+           // {41000, 61}
+        };
+
+        for (int[] employee : employees) {
+            System.out.println("Calculating pay for Employee " + employee[0] + ":");
+            vupay.calculatePay(employee[0], employee[1]);
+            System.out.println();
+        }
+    }
+}
+
